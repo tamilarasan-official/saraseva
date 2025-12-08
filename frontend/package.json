@@ -1,0 +1,15 @@
+{
+    "name": "saralseva-frontend",
+    "version": "1.0.0",
+    "description": "SaralSeva AI Frontend - Government Services Platform",
+    "scripts": {
+        "start": "npx http-server . -p 8000 -c-1",
+        "dev": "npx http-server . -p 8000 -c-1 -o"
+    },
+    "keywords": ["saralseva", "government", "services", "frontend"],
+    "author": "SaralSeva Team",
+    "license": "ISC",
+    "devDependencies": {
+        "http-server": "^14.1.1"
+    }
+}
