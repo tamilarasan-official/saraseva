@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - SaralSeva Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="bg-blue-600 text-white p-4 shadow-lg">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">SaralSeva AI</h1>
+      <div class="flex items-center gap-4">
+        <span id="userName" class="font-medium">Welcome, User</span>
+        <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h2>
+
+    <!-- Service Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Chatbot Card -->
+      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='chatbot.html'">
+        <span class="text-blue-600 text-4xl block mb-3">💬</span>
+        <span class="text-xl font-bold text-gray-800 block mb-2">AI Chatbot</span>
+        <span class="text-gray-600 text-sm block">Get instant answers to your government service questions</span>
+      </button>
+
+      <!-- Document Check Card -->
+      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='document-check.html'">
+        <span class="text-green-600 text-4xl block mb-3">📄</span>
+        <span class="text-xl font-bold text-gray-800 block mb-2">Document Check</span>
+        <span class="text-gray-600 text-sm block">Verify your documents before submission</span>
+      </button>
+
+      <!-- Office Locator Card -->
+      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='office-locator.html'">
+        <span class="text-purple-600 text-4xl block mb-3">📍</span>
+        <span class="text-xl font-bold text-gray-800 block mb-2">Office Locator</span>
+        <span class="text-gray-600 text-sm block">Find nearby government offices with directions</span>
+      </button>
+
+      <!-- Auto Fill Card -->
+      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='autofill.html'">
+        <span class="text-orange-600 text-4xl block mb-3">✏️</span>
+        <span class="text-xl font-bold text-gray-800 block mb-2">Auto Form Fill</span>
+        <span class="text-gray-600 text-sm block">Automatically fill government forms with your data</span>
+      </button>
+
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h3>
+      <div class="space-y-3">
+        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">1</div>
+          <div>
+            <p class="font-medium text-gray-800">Welcome to SaralSeva AI</p>
+            <p class="text-sm text-gray-600">Start by exploring our services above</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

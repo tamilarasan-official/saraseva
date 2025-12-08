@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SaralSeva AI – Office Locator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .location-btn {
+      transition: all 0.3s ease;
+    }
+    .location-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+    .service-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .service-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    .pulse-animation {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    #map-preview {
+      min-height: 400px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="glass-card shadow-lg">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 bg-gradient-to-br from-purple-500 to-indigo-600 text-white rounded-xl flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <span class="text-lg font-bold text-gray-800">Office Locator</span>
+      </div>
+      <a href="index.html" class="text-sm text-indigo-600 hover:text-indigo-800 font-semibold transition">← Back</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+
+    <div class="glass-card shadow-2xl rounded-2xl p-8 space-y-6">
+      <div class="text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Find Nearby Government Offices</h1>
+        <p class="text-base text-gray-600">Select a service type and we'll help you find the nearest office with directions</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="service-card glass-card p-4 rounded-xl text-center" data-service="EB office">
+          <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-800 text-sm">EB Office</h3>
+          <p class="text-xs text-gray-600 mt-1">Electricity Board</p>
+        </div>
+
+        <div class="service-card glass-card p-4 rounded-xl text-center" data-service="ration shop">
+          <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-800 text-sm">Ration Shop</h3>
+          <p class="text-xs text-gray-600 mt-1">Public Distribution</p>
+        </div>
+
+        <div class="service-card glass-card p-4 rounded-xl text-center" data-service="water board office">
+          <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-800 text-sm">Water Board</h3>
+          <p class="text-xs text-gray-600 mt-1">Water Connection</p>
+        </div>
+
+        <div class="service-card glass-card p-4 rounded-xl text-center" data-service="municipality office">
+          <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-800 text-sm">Municipality</h3>
+          <p class="text-xs text-gray-600 mt-1">Civic Services</p>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-sm text-gray-700 mb-3" id="selectedService">Select a service above to continue</p>
+        <button id="locateBtn" type="button" class="location-btn bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-8 py-4 rounded-xl text-lg font-semibold shadow-xl disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+          <svg class="w-6 h-6 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          Find Nearest Location
+        </button>
+      </div>
+
+      <div id="locationInfo" class="text-center text-base"></div>
+
+      <div id="map-container" class="hidden">
+        <div class="glass-card p-6 rounded-2xl">
+          <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+            </svg>
+            Nearby Locations
+          </h2>
+          <div id="map-preview" class="bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
+            <div class="text-center">
+              <div class="pulse-animation">
+                <svg class="w-16 h-16 mx-auto text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <p class="text-gray-700 font-semibold mt-4">Opening Google Maps...</p>
+              <p class="text-sm text-gray-600 mt-2">You'll be redirected to view nearby offices</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    const btn = document.getElementById("locateBtn");
+    const info = document.getElementById("locationInfo");
+    const selectedServiceText = document.getElementById("selectedService");
+    const mapContainer = document.getElementById("map-container");
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    let selectedService = null;
+
+    // Service card selection
+    serviceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        // Remove previous selection
+        serviceCards.forEach(c => {
+          c.style.background = 'rgba(255, 255, 255, 0.95)';
+          c.style.transform = '';
+        });
+        
+        // Highlight selected card
+        card.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2))';
+        card.style.transform = 'scale(1.05)';
+        
+        selectedService = card.getAttribute('data-service');
+        selectedServiceText.textContent = `Selected: ${selectedService}`;
+        selectedServiceText.className = 'text-sm text-indigo-700 font-semibold mb-3';
+        
+        btn.disabled = false;
+        info.innerHTML = '';
+        mapContainer.classList.add('hidden');
+      });
+    });
+
+    btn.onclick = () => {
+      if (!selectedService) {
+        info.innerHTML = `
+          <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+            <p class="text-yellow-700 font-semibold">⚠️ Please select a service type first</p>
+          </div>
+        `;
+        return;
+      }
+
+      if (!navigator.geolocation) {
+        info.innerHTML = `
+          <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-red-700 font-semibold">❌ Geolocation is not supported by your browser</p>
+          </div>
+        `;
+        return;
+      }
+
+      info.innerHTML = `
+        <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+          <p class="text-blue-700 font-semibold">📍 Getting your location...</p>
+        </div>
+      `;
+      btn.disabled = true;
+
+      navigator.geolocation.getCurrentPosition(pos => {
+        const { latitude, longitude } = pos.coords;
+        const service = encodeURIComponent(selectedService);
+        const url = `https://www.google.com/maps/search/${service}/@${latitude},${longitude},15z`;
+
+        info.innerHTML = `
+          <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
+            <p class="text-emerald-700 font-semibold">✅ Location found!</p>
+            <p class="text-sm text-emerald-600 mt-2">Latitude: ${latitude.toFixed(6)}, Longitude: ${longitude.toFixed(6)}</p>
+            <p class="text-sm text-emerald-600 mt-1">Opening Google Maps for <strong>${selectedService}</strong>...</p>
+          </div>
+        `;
+        
+        mapContainer.classList.remove('hidden');
+        
+        setTimeout(() => {
+          window.open(url, "_blank");
+          btn.disabled = false;
+        }, 1500);
+
+      }, (error) => {
+        let errorMessage = "Location access denied.";
+        if (error.code === 1) {
+          errorMessage = "Location access denied. Please enable location permissions.";
+        } else if (error.code === 2) {
+          errorMessage = "Location information unavailable.";
+        } else if (error.code === 3) {
+          errorMessage = "Location request timeout.";
+        }
+        
+        info.innerHTML = `
+          <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p class="text-red-700 font-semibold">❌ ${errorMessage}</p>
+            <p class="text-sm text-red-600 mt-2">Please check your browser settings and try again.</p>
+          </div>
+        `;
+        btn.disabled = false;
+        mapContainer.classList.add('hidden');
+      });
+    };
+  </script>
+
+</body>
+</html>
