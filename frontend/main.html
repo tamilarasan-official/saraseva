@@ -113,14 +113,162 @@
         </div>
     </section>
 
-    <!-- Services Section with Scrolling Columns -->
+    <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
-            <h2 class="section-title">Government Services We Help With</h2>
-            <p class="section-subtitle">Simplifying civic processes with intelligent guidance</p>
+            <div class="services-header">
+                <div class="services-badge">
+                    <span>Services</span>
+                </div>
+                <h2 class="section-title">Government Services We Help With</h2>
+                <p class="section-subtitle">Simplifying civic processes with intelligent guidance</p>
+            </div>
 
-            <div id="services-columns" class="services-columns">
-                <!-- Services will be injected by services-scroll.js -->
+            <!-- Scrolling Service Cards Columns -->
+            <div class="services-columns-wrapper">
+                <!-- Column 1 -->
+                <div class="services-column" data-duration="15">
+                    <div class="services-track">
+                        <!-- First set -->
+                        <div class="service-card-scroll" onclick="exploreService('EB Bill Management')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <h3 class="service-title">EB Bill Management</h3>
+                                <p class="service-desc">Name changes, bill corrections, connection issues, and payment guidance</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="service-card-scroll" onclick="exploreService('Ration Card Services')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <h3 class="service-title">Ration Card Services</h3>
+                                <p class="service-desc">Update address, add family members, document verification</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="service-card-scroll" onclick="exploreService('EB Bill Management')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <h3 class="service-title">EB Bill Management</h3>
+                                <p class="service-desc">Name changes, bill corrections, connection issues, and payment guidance</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="service-card-scroll" onclick="exploreService('Ration Card Services')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <h3 class="service-title">Ration Card Services</h3>
+                                <p class="service-desc">Update address, add family members, document verification</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="services-column column-reverse" data-duration="19">
+                    <div class="services-track reverse">
+                        <!-- First set -->
+                        <div class="service-card-scroll" onclick="exploreService('Water Connection')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-water"></i>
+                                </div>
+                                <h3 class="service-title">Water Connection</h3>
+                                <p class="service-desc">New connection applications, bill management, and complaints</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="service-card-scroll" onclick="exploreService('Property Tax')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h3 class="service-title">Property Tax</h3>
+                                <p class="service-desc">Property registration, tax calculation, and payment tracking</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="service-card-scroll" onclick="exploreService('Water Connection')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-water"></i>
+                                </div>
+                                <h3 class="service-title">Water Connection</h3>
+                                <p class="service-desc">New connection applications, bill management, and complaints</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="service-card-scroll" onclick="exploreService('Property Tax')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h3 class="service-title">Property Tax</h3>
+                                <p class="service-desc">Property registration, tax calculation, and payment tracking</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="services-column" data-duration="17">
+                    <div class="services-track">
+                        <!-- First set -->
+                        <div class="service-card-scroll" onclick="exploreService('Police Complaints')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3 class="service-title">Police Complaints</h3>
+                                <p class="service-desc">File FIR, track complaint status, and legal guidance</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="service-card-scroll" onclick="exploreService('Civic Services')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <h3 class="service-title">Civic Services</h3>
+                                <p class="service-desc">Municipal services, road complaints, sanitation, and permits</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="service-card-scroll" onclick="exploreService('Police Complaints')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h3 class="service-title">Police Complaints</h3>
+                                <p class="service-desc">File FIR, track complaint status, and legal guidance</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="service-card-scroll" onclick="exploreService('Civic Services')">
+                            <div class="service-card-content">
+                                <div class="service-icon-scroll">
+                                    <i class="fas fa-city"></i>
+                                </div>
+                                <h3 class="service-title">Civic Services</h3>
+                                <p class="service-desc">Municipal services, road complaints, sanitation, and permits</p>
+                                <button type="button" class="service-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -129,135 +277,56 @@
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Why Choose SaralSeva AI?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-robot"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>AI-Powered Chatbot</h3>
-                            <p>Intelligent conversational assistant that understands your problems and provides step-by-step guidance</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+            <div class="features-grid-glass">
+                <!-- Row 1 -->
+                <div class="glass-card" data-text="AI Chatbot">
+                    <i class="fas fa-robot"></i>
+                    <p class="glass-title">AI-Powered Chatbot</p>
+                    <p class="glass-desc">Intelligent assistant that understands your problems</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-globe"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Multiple Languages</h3>
-                            <p>Available in regional languages to make government services accessible to everyone</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <div class="glass-card" data-text="Languages">
+                    <i class="fas fa-globe"></i>
+                    <p class="glass-title">Multiple Languages</p>
+                    <p class="glass-desc">Available in regional languages for everyone</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-file-upload"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Document Validation</h3>
-                            <p>Upload and validate your documents with OCR technology and AI verification</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <div class="glass-card" data-text="Documents">
+                    <i class="fas fa-file-upload"></i>
+                    <p class="glass-title">Document Validation</p>
+                    <p class="glass-desc">Upload and validate with OCR technology</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-map-location-dot"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Office Locator</h3>
-                            <p>Find nearest government offices with directions, timings, and contact information</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <div class="glass-card" data-text="Locator">
+                    <i class="fas fa-map-location-dot"></i>
+                    <p class="glass-title">Office Locator</p>
+                    <p class="glass-desc">Find nearest offices with directions</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-file-signature"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Auto Form Filling</h3>
-                            <p>Pre-filled forms with your data - submit applications faster and accurately</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <!-- Row 2 -->
+                <div class="glass-card" data-text="Forms">
+                    <i class="fas fa-file-signature"></i>
+                    <p class="glass-title">Auto Form Filling</p>
+                    <p class="glass-desc">Pre-filled forms for faster submissions</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-shield-halved"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Secure &amp; Private</h3>
-                            <p>Your data is encrypted and protected with highest security standards</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <div class="glass-card" data-text="Secure">
+                    <i class="fas fa-shield-halved"></i>
+                    <p class="glass-title">Secure &amp; Private</p>
+                    <p class="glass-desc">Data encrypted with highest standards</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>24/7 Available</h3>
-                            <p>Get help anytime, anywhere - no waiting for office hours</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <div class="glass-card" data-text="24/7">
+                    <i class="fas fa-clock"></i>
+                    <p class="glass-title">24/7 Available</p>
+                    <p class="glass-desc">Get help anytime, anywhere</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-card-inner">
-                        <div class="feature-icon-box">
-                            <div class="icon-glow"></div>
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h3>Mobile Friendly</h3>
-                            <p>Access from any device - phone, tablet, or computer</p>
-                        </div>
-                        <div class="feature-hover-effect"></div>
-                    </div>
+                <div class="glass-card" data-text="Mobile">
+                    <i class="fas fa-mobile-alt"></i>
+                    <p class="glass-title">Mobile Friendly</p>
+                    <p class="glass-desc">Access from any device</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials-section" class="testimonials-section">
-        <div class="container">
-            <div class="testimonials-header">
-                <div class="testimonials-badge">
-                    <span>Testimonials</span>
-                </div>
-                <h2 class="section-title">What our users say</h2>
-                <p class="section-subtitle">See what our customers have to say about us.</p>
-            </div>
-
-            <div id="testimonials-columns" class="testimonials-columns">
-                <!-- Testimonials will be injected by testimonials.js -->
             </div>
         </div>
     </section>
@@ -344,7 +413,7 @@
         <div class="container">
             <h2 class="section-title">Chat With Our AI Assistant</h2>
             <div class="chatbot-container">
-                <div class="chat-window">
+                <div class="chat-window chat-display-only">
                     <div class="chat-header">
                         <h3>SaralSeva AI Assistant</h3>
                         <p>Online</p>
@@ -368,16 +437,6 @@
                             <p><strong>Timeline:</strong> 7-15 working days</p>
                         </div>
                     </div>
-                    <div class="quick-actions">
-                        <button class="quick-btn" onclick="setQuery('EB Bill Issues')">EB Bill Issues</button>
-                        <button class="quick-btn" onclick="setQuery('Ration Card')">Ration Card</button>
-                        <button class="quick-btn" onclick="setQuery('Water Connection')">Water Connection</button>
-                        <button class="quick-btn" onclick="setQuery('Police Complaint')">Police Complaint</button>
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" placeholder="Type your question..." id="chatInput">
-                        <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
                 </div>
                 <div class="chatbot-info">
                     <h3>AI-Powered Assistance</h3>
@@ -390,7 +449,7 @@
                         <li><i class="fas fa-check-circle"></i> Office locations</li>
                         <li><i class="fas fa-check-circle"></i> Application tracking</li>
                     </ul>
-                    <button class="btn-primary" onclick="scrollToSection('services')">Explore More Services</button>
+                    <button class="btn-primary" type="button" onclick="scrollToSection('services')">Explore More Services</button>
                 </div>
             </div>
         </div>
@@ -402,14 +461,12 @@
             <h2 class="section-title">Smart Document Validation</h2>
             <div class="document-content">
                 <div class="document-upload">
-                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-area upload-display-only">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <h3>Upload Your Documents</h3>
                         <p>Drag and drop or click to upload</p>
                         <p class="file-types">Supports: PDF, JPG, PNG, DOC</p>
                     </div>
-                    <input type="file" id="fileInput" hidden onchange="handleFileUpload(event)">
-                    <div id="uploadStatus" class="upload-status" style="display: none;"></div>
                 </div>
                 <div class="document-info">
                     <h3>Instant Document Verification</h3>
@@ -422,7 +479,7 @@
                         <li><i class="fas fa-check"></i> Required signatures</li>
                         <li><i class="fas fa-check"></i> Missing information alerts</li>
                     </ul>
-                    <button class="btn-primary" onclick="scrollToSection('home')">Get Started</button>
+                    <button class="btn-primary" type="button" onclick="scrollToSection('home')">Get Started</button>
                 </div>
             </div>
         </div>
@@ -433,18 +490,22 @@
         <div class="container">
             <h2 class="section-title">Find Nearest Government Offices</h2>
             <div class="locator-content">
-                <div class="map-container">
-                    <div id="map" class="map-placeholder">
-                        <i class="fas fa-map"></i>
-                        <p>Interactive Map View</p>
-                    </div>
+                <div class="map-container map-display-only">
+                    <img 
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=80.10%2C12.80%2C80.40%2C13.20&layer=mapnik&marker=13.0827%2C80.2707" 
+                        alt="Chennai Map - Government Office Locations"
+                        class="map-static-image"
+                        loading="lazy"
+                    >
+                    <iframe 
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=80.10%2C12.80%2C80.40%2C13.20&layer=mapnik&marker=13.0827%2C80.2707"
+                        title="Chennai Government Office Locations Map"
+                        class="map-static-iframe"
+                        loading="lazy">
+                    </iframe>
                 </div>
                 <div class="office-list">
                     <h3>Nearby Offices</h3>
-                    <div class="search-offices">
-                        <input type="text" placeholder="Search office..." id="officeSearch" onkeyup="filterOffices()">
-                        <button onclick="findNearestOffice()"><i class="fas fa-location-dot"></i> Use My Location</button>
-                    </div>
                     <div id="officeResults" class="office-results">
                         <div class="office-item">
                             <div class="office-header">
@@ -454,7 +515,6 @@
                             <p><i class="fas fa-map-marker-alt"></i> 123 Power Street, City Center</p>
                             <p><i class="fas fa-phone"></i> +91-XXXX-XXXX</p>
                             <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
-                            <button class="btn-small" onclick="getDirections()">Get Directions</button>
                         </div>
                         <div class="office-item">
                             <div class="office-header">
@@ -464,7 +524,6 @@
                             <p><i class="fas fa-map-marker-alt"></i> 456 Food Street, Market Area</p>
                             <p><i class="fas fa-phone"></i> +91-YYYY-YYYY</p>
                             <p><i class="fas fa-clock"></i> Tue-Sat: 10:00 AM - 4:00 PM</p>
-                            <button class="btn-small" onclick="getDirections()">Get Directions</button>
                         </div>
                     </div>
                 </div>

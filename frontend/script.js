@@ -560,9 +560,185 @@ function escapeHtml(text) {
 // ============================================
 
 function exploreService(serviceType) {
-    showLogin();
+    // Show service details modal instead of redirecting to login
+    showServiceModal(serviceType);
     // Store selected service
     sessionStorage.setItem('selectedService', serviceType);
+}
+
+// Service details data
+const serviceDetails = {
+    'EB Bill Management': {
+        icon: 'fas fa-bolt',
+        color: '#f59e0b',
+        description: 'Complete assistance for all electricity bill related issues and services.',
+        features: [
+            'Name change on EB bill',
+            'Bill correction and disputes',
+            'New connection application',
+            'Payment guidance and tracking',
+            'Meter reading issues',
+            'Tariff category changes'
+        ],
+        documents: ['Aadhaar Card', 'Property Documents', 'Previous Bill Copy', 'ID Proof'],
+        helpline: '1912'
+    },
+    'Ration Card Services': {
+        icon: 'fas fa-file-alt',
+        color: '#10b981',
+        description: 'Manage your ration card services with ease and get your entitlements.',
+        features: [
+            'Address update',
+            'Add/remove family members',
+            'Document verification',
+            'Check subsidy status',
+            'Apply for new card',
+            'Card type conversion'
+        ],
+        documents: ['Aadhaar Card', 'Income Certificate', 'Residence Proof', 'Family Photos'],
+        helpline: '1967'
+    },
+    'Water Connection': {
+        icon: 'fas fa-water',
+        color: '#3b82f6',
+        description: 'Get help with water connection applications and bill management.',
+        features: [
+            'New connection application',
+            'Bill payment assistance',
+            'Complaint registration',
+            'Service request tracking',
+            'Meter issues',
+            'Connection transfer'
+        ],
+        documents: ['Property Documents', 'ID Proof', 'Address Proof', 'NOC if applicable'],
+        helpline: '1916'
+    },
+    'Property Tax': {
+        icon: 'fas fa-home',
+        color: '#8b5cf6',
+        description: 'Property registration, tax calculation and payment made simple.',
+        features: [
+            'Tax calculation',
+            'Property registration',
+            'Payment status check',
+            'Apply for exemptions',
+            'Ownership transfer',
+            'Assessment appeals'
+        ],
+        documents: ['Sale Deed', 'Encumbrance Certificate', 'ID Proof', 'Previous Tax Receipts'],
+        helpline: '1800-XXX-XXXX'
+    },
+    'Police Complaints': {
+        icon: 'fas fa-exclamation-triangle',
+        color: '#ef4444',
+        description: 'File complaints, track status and get legal guidance assistance.',
+        features: [
+            'File FIR online',
+            'Track complaint status',
+            'Document assistance',
+            'Legal guidance',
+            'Women helpline',
+            'Cyber crime reporting'
+        ],
+        documents: ['ID Proof', 'Evidence Documents', 'Witness Details', 'Incident Details'],
+        helpline: '100 / 112'
+    },
+    'Civic Services': {
+        icon: 'fas fa-city',
+        color: '#06b6d4',
+        description: 'Municipal services, road complaints, sanitation and public utilities.',
+        features: [
+            'Road repair complaints',
+            'Sanitation issues',
+            'Public utility problems',
+            'Building permits',
+            'Trade license',
+            'Birth/Death certificates'
+        ],
+        documents: ['ID Proof', 'Address Proof', 'Application Form', 'Photos if required'],
+        helpline: '1800-XXX-XXXX'
+    }
+};
+
+function showServiceModal(serviceType) {
+    const service = serviceDetails[serviceType];
+    if (!service) return;
+
+    // Remove existing modal if any
+    const existingModal = document.getElementById('serviceModal');
+    if (existingModal) existingModal.remove();
+
+    const featuresHTML = service.features.map(f => `<li><i class="fas fa-check-circle"></i> ${f}</li>`).join('');
+    const documentsHTML = service.documents.map(d => `<span class="doc-tag">${d}</span>`).join('');
+
+    const modalHTML = `
+        <div id="serviceModal" class="service-modal-overlay" onclick="closeServiceModal(event)">
+            <div class="service-modal" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeServiceModal()">&times;</button>
+                <div class="modal-header" style="--service-color: ${service.color}">
+                    <div class="modal-icon">
+                        <i class="${service.icon}"></i>
+                    </div>
+                    <h2>${serviceType}</h2>
+                    <p>${service.description}</p>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-section">
+                        <h3><i class="fas fa-list-check"></i> Services We Help With</h3>
+                        <ul class="features-list">
+                            ${featuresHTML}
+                        </ul>
+                    </div>
+                    <div class="modal-section">
+                        <h3><i class="fas fa-folder-open"></i> Documents Required</h3>
+                        <div class="documents-tags">
+                            ${documentsHTML}
+                        </div>
+                    </div>
+                    <div class="modal-section helpline">
+                        <h3><i class="fas fa-phone"></i> Helpline</h3>
+                        <p class="helpline-number">${service.helpline}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-get-started" onclick="getStartedWithService('${serviceType}')">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHTML);
+    
+    // Trigger animation
+    setTimeout(() => {
+        document.getElementById('serviceModal').classList.add('active');
+    }, 10);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+}
+
+function closeServiceModal(event) {
+    if (event && event.target !== event.currentTarget) return;
+    
+    const modal = document.getElementById('serviceModal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.remove();
+            document.body.style.overflow = '';
+        }, 300);
+    }
+}
+
+function getStartedWithService(serviceType) {
+    closeServiceModal();
+    // Scroll to the chatbot section or how-it-works section
+    scrollToSection('how-it-works');
+    // Show notification
+    showNotification(`Ready to help you with ${serviceType}! Follow the steps to get started.`, 'success');
 }
 
 // ============================================
@@ -624,28 +800,113 @@ function filterOffices() {
 
 // Find Nearest Office
 function findNearestOffice() {
+    const mapOverlay = document.getElementById('mapOverlay');
+    const officeMap = document.getElementById('officeMap');
+    
     if (navigator.geolocation) {
+        // Show loading overlay
+        if (mapOverlay) mapOverlay.classList.add('loading');
+        
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
                 console.log(`User location: ${lat}, ${lng}`);
-                alert(`📍 Found your location!\nNearest offices have been updated.`);
+                
+                // Update map to user's location
+                updateMapLocation(lat, lng);
+                
+                // Hide loading overlay
+                if (mapOverlay) mapOverlay.classList.remove('loading');
+                
+                showNotification('📍 Found your location! Map updated with nearby offices.', 'success');
             },
             (error) => {
-                alert('Location access denied. Please enable location services.');
+                if (mapOverlay) mapOverlay.classList.remove('loading');
+                showNotification('Location access denied. Please enable location services.', 'error');
             }
         );
     } else {
-        alert('Geolocation is not supported by your browser.');
+        showNotification('Geolocation is not supported by your browser.', 'error');
     }
 }
 
-// Get Directions
-function getDirections() {
-    alert('📍 Opening Maps with directions to the selected office...');
-    // In real app, this would integrate with Google Maps API
+// Update map to specific location
+function updateMapLocation(lat, lng) {
+    const officeMap = document.getElementById('officeMap');
+    if (officeMap) {
+        // Calculate bounding box around the location
+        const delta = 0.05;
+        const bbox = `${lng - delta}%2C${lat - delta}%2C${lng + delta}%2C${lat + delta}`;
+        officeMap.src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}`;
+    }
 }
+
+// Toggle map fullscreen
+function toggleMapFullscreen() {
+    const mapWrapper = document.getElementById('map');
+    const fullscreenBtn = mapWrapper.querySelector('.map-fullscreen-btn i');
+    
+    if (mapWrapper.classList.contains('fullscreen')) {
+        mapWrapper.classList.remove('fullscreen');
+        fullscreenBtn.classList.remove('fa-compress');
+        fullscreenBtn.classList.add('fa-expand');
+        document.body.style.overflow = '';
+    } else {
+        mapWrapper.classList.add('fullscreen');
+        fullscreenBtn.classList.remove('fa-expand');
+        fullscreenBtn.classList.add('fa-compress');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// Get Directions - Opens in Google Maps
+function getDirections(address) {
+    const defaultAddress = '123 Power Street, City Center';
+    const destination = address || defaultAddress;
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                // Open Google Maps with directions
+                const url = `https://www.google.com/maps/dir/${lat},${lng}/${encodeURIComponent(destination)}`;
+                window.open(url, '_blank');
+            },
+            (error) => {
+                // Open Google Maps without starting location
+                const url = `https://www.google.com/maps/search/${encodeURIComponent(destination)}`;
+                window.open(url, '_blank');
+            }
+        );
+    } else {
+        const url = `https://www.google.com/maps/search/${encodeURIComponent(destination)}`;
+        window.open(url, '_blank');
+    }
+}
+
+// Initialize map on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const mapOverlay = document.getElementById('mapOverlay');
+    const officeMap = document.getElementById('officeMap');
+    
+    if (officeMap) {
+        officeMap.addEventListener('load', function() {
+            if (mapOverlay) mapOverlay.classList.remove('loading');
+        });
+    }
+    
+    // Close fullscreen map on Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const mapWrapper = document.getElementById('map');
+            if (mapWrapper && mapWrapper.classList.contains('fullscreen')) {
+                toggleMapFullscreen();
+            }
+        }
+    });
+});
 
 // ============================================
 // SCROLL ANIMATIONS
