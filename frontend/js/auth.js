@@ -58,14 +58,18 @@ class AuthService {
      */
     static async login(credentials) {
         try {
+            console.log('AuthService.login called with:', { email: credentials.email });
             const response = await apiService.post('/auth/login', credentials);
+            console.log('Login API response:', response);
 
             if (response.success && response.data) {
                 this.setAuth(response.data.token, response.data.user);
+                console.log('Auth data stored successfully');
             }
 
             return { success: true, data: response };
         } catch (error) {
+            console.error('AuthService.login error:', error);
             return { success: false, error: error.message, errors: error.errors };
         }
     }

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaralSeva - Your Government Services Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Animated Shader Background -->
+    <canvas id="shaderBackground" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>SaralSeva </span>
+                </div>
+                <div class="glass-radio-group">
+                    <input type="radio" name="nav" id="glass-home" checked />
+                    <label for="glass-home" onclick="scrollToSection('home')">Home</label>
+
+                    <input type="radio" name="nav" id="glass-services" />
+                    <label for="glass-services" onclick="scrollToSection('services')">Services</label>
+
+                    <input type="radio" name="nav" id="glass-features" />
+                    <label for="glass-features" onclick="scrollToSection('features')">Features</label>
+
+                    <input type="radio" name="nav" id="glass-how" />
+                    <label for="glass-how" onclick="scrollToSection('how-it-works')">How It Works</label>
+
+                    <input type="radio" name="nav" id="glass-contact" />
+                    <label for="glass-contact" onclick="scrollToSection('contact')">Contact</label>
+
+                    <div class="glass-glider"></div>
+                </div>
+                <div class="nav-buttons">
+                    <button id="themeToggle" class="btn-theme" onclick="toggleTheme()" title="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn-login" onclick="window.location.href='pages/login-new.html'">Login</button>
+                    <button class="btn-register" onclick="window.location.href='pages/register-new.html'">Sign Up</button>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>SaralSeva </span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line title-line-1">Your AI-Powered</span>
+                    <span class="title-line title-line-2">Government Services Assistant</span>
+                </h1>
+                <p class="hero-subtitle">Get instant guidance for EB bills, ration cards, water connections, police complaints, and civic services - Available 24/7 in your local language</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('services')">Explore Services</button>
+                    <button class="btn-secondary" onclick="showDemo()">Watch Demo</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>10K+</h3>
+                        <p>Users Helped</p>
+                    </div>
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Services Available</p>
+                    </div>
+                    <div class="stat">
+                        <h3>24/7</h3>
+                        <p>Always Available</p>
+                    </div>
+                </div>
+
+                <!-- Continuous Scrolling Services Text -->
+                <div class="scrolling-services-container">
+                    <div class="scrolling-services">
+                        <span class="service-text">EB Form Fill</span>
+                        <span class="service-text">Ration Service</span>
+                        <span class="service-text">Municipality Service</span>
+                        <span class="service-text">Water Bill</span>
+                        <span class="service-text">Property Tax</span>
+                        <!-- Duplicate for seamless loop -->
+                        <span class="service-text">EB Form Fill</span>
+                        <span class="service-text">Ration Service</span>
+                        <span class="service-text">Municipality Service</span>
+                        <span class="service-text">Water Bill</span>
+                        <span class="service-text">Property Tax</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <i class="fas fa-robot"></i>
+                    <p>AI Assistant Ready</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section with Scrolling Columns -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Government Services We Help With</h2>
+            <p class="section-subtitle">Simplifying civic processes with intelligent guidance</p>
+
+            <div id="services-columns" class="services-columns">
+                <!-- Services will be injected by services-scroll.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose SaralSeva AI?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>AI-Powered Chatbot</h3>
+                            <p>Intelligent conversational assistant that understands your problems and provides step-by-step guidance</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Multiple Languages</h3>
+                            <p>Available in regional languages to make government services accessible to everyone</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-file-upload"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Document Validation</h3>
+                            <p>Upload and validate your documents with OCR technology and AI verification</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-map-location-dot"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Office Locator</h3>
+                            <p>Find nearest government offices with directions, timings, and contact information</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Auto Form Filling</h3>
+                            <p>Pre-filled forms with your data - submit applications faster and accurately</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Secure &amp; Private</h3>
+                            <p>Your data is encrypted and protected with highest security standards</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>24/7 Available</h3>
+                            <p>Get help anytime, anywhere - no waiting for office hours</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-box">
+                            <div class="icon-glow"></div>
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Mobile Friendly</h3>
+                            <p>Access from any device - phone, tablet, or computer</p>
+                        </div>
+                        <div class="feature-hover-effect"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials-section" class="testimonials-section">
+        <div class="container">
+            <div class="testimonials-header">
+                <div class="testimonials-badge">
+                    <span>Testimonials</span>
+                </div>
+                <h2 class="section-title">What our users say</h2>
+                <p class="section-subtitle">See what our customers have to say about us.</p>
+            </div>
+
+            <div id="testimonials-columns" class="testimonials-columns">
+                <!-- Testimonials will be injected by testimonials.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Simple steps to solve your government service needs</p>
+            <div class="steps-timeline">
+                <div class="timeline-line"></div>
+                <div class="steps-container">
+                    <div class="step-card" data-step="1">
+                        <div class="step-icon-wrapper">
+                            <div class="step-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="step-number">1</div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Choose Your Language</h3>
+                            <p>Select your preferred language - Hindi, English, Tamil, Telugu, Kannada, and more</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" data-step="2">
+                        <div class="step-icon-wrapper">
+                            <div class="step-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="step-number">2</div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Login / Register</h3>
+                            <p>Create a simple account or login to access personalized assistance</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" data-step="3">
+                        <div class="step-icon-wrapper">
+                            <div class="step-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="step-number">3</div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Ask Your Question</h3>
+                            <p>Chat with AI about your government service needs - describe your problem naturally</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" data-step="4">
+                        <div class="step-icon-wrapper">
+                            <div class="step-icon">
+                                <i class="fas fa-list-check"></i>
+                            </div>
+                            <div class="step-number">4</div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Get Guidance</h3>
+                            <p>Receive step-by-step instructions, documents needed, fees, and timelines</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card" data-step="5">
+                        <div class="step-icon-wrapper">
+                            <div class="step-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="step-number">5</div>
+                        </div>
+                        <div class="step-content">
+                            <h3>Complete Application</h3>
+                            <p>Use auto-fill forms and document validator to submit your application</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Preview Section -->
+    <section class="chatbot-preview">
+        <div class="container">
+            <h2 class="section-title">Chat With Our AI Assistant</h2>
+            <div class="chatbot-container">
+                <div class="chat-window">
+                    <div class="chat-header">
+                        <h3>SaralSeva AI Assistant</h3>
+                        <p>Online</p>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="message bot-message">
+                            <p>Hello! I'm SaralSeva AI. How can I help you with government services today?</p>
+                        </div>
+                        <div class="message user-message">
+                            <p>I need to change my name in my EB bill</p>
+                        </div>
+                        <div class="message bot-message">
+                            <p>Great! I can help you with your EB Name Change. Here are the steps:</p>
+                            <ul class="bot-steps">
+                                <li><strong>Step 1:</strong> Gather documents - ID proof, EB bill, marriage certificate (if applicable)</li>
+                                <li><strong>Step 2:</strong> Visit your nearest EB office with originals</li>
+                                <li><strong>Step 3:</strong> Fill Form DC-1 (provided by office)</li>
+                                <li><strong>Step 4:</strong> Pay application fee (₹50-100)</li>
+                                <li><strong>Step 5:</strong> Get reference number for tracking</li>
+                            </ul>
+                            <p><strong>Timeline:</strong> 7-15 working days</p>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="quick-btn" onclick="setQuery('EB Bill Issues')">EB Bill Issues</button>
+                        <button class="quick-btn" onclick="setQuery('Ration Card')">Ration Card</button>
+                        <button class="quick-btn" onclick="setQuery('Water Connection')">Water Connection</button>
+                        <button class="quick-btn" onclick="setQuery('Police Complaint')">Police Complaint</button>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your question..." id="chatInput">
+                        <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+                <div class="chatbot-info">
+                    <h3>AI-Powered Assistance</h3>
+                    <p>Our intelligent chatbot provides:</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Instant responses</li>
+                        <li><i class="fas fa-check-circle"></i> Step-by-step guidance</li>
+                        <li><i class="fas fa-check-circle"></i> Document requirements</li>
+                        <li><i class="fas fa-check-circle"></i> Fee information</li>
+                        <li><i class="fas fa-check-circle"></i> Office locations</li>
+                        <li><i class="fas fa-check-circle"></i> Application tracking</li>
+                    </ul>
+                    <button class="btn-primary" onclick="scrollToSection('services')">Explore More Services</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Document Upload Section -->
+    <section class="document-section">
+        <div class="container">
+            <h2 class="section-title">Smart Document Validation</h2>
+            <div class="document-content">
+                <div class="document-upload">
+                    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Upload Your Documents</h3>
+                        <p>Drag and drop or click to upload</p>
+                        <p class="file-types">Supports: PDF, JPG, PNG, DOC</p>
+                    </div>
+                    <input type="file" id="fileInput" hidden onchange="handleFileUpload(event)">
+                    <div id="uploadStatus" class="upload-status" style="display: none;"></div>
+                </div>
+                <div class="document-info">
+                    <h3>Instant Document Verification</h3>
+                    <p>Our AI checks your documents for:</p>
+                    <ul class="doc-checklist">
+                        <li><i class="fas fa-check"></i> Document authenticity</li>
+                        <li><i class="fas fa-check"></i> Completeness of information</li>
+                        <li><i class="fas fa-check"></i> Clarity and readability</li>
+                        <li><i class="fas fa-check"></i> Validity and expiry dates</li>
+                        <li><i class="fas fa-check"></i> Required signatures</li>
+                        <li><i class="fas fa-check"></i> Missing information alerts</li>
+                    </ul>
+                    <button class="btn-primary" onclick="scrollToSection('home')">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Office Locator Section -->
+    <section class="office-locator">
+        <div class="container">
+            <h2 class="section-title">Find Nearest Government Offices</h2>
+            <div class="locator-content">
+                <div class="map-container">
+                    <div id="map" class="map-placeholder">
+                        <i class="fas fa-map"></i>
+                        <p>Interactive Map View</p>
+                    </div>
+                </div>
+                <div class="office-list">
+                    <h3>Nearby Offices</h3>
+                    <div class="search-offices">
+                        <input type="text" placeholder="Search office..." id="officeSearch" onkeyup="filterOffices()">
+                        <button onclick="findNearestOffice()"><i class="fas fa-location-dot"></i> Use My Location</button>
+                    </div>
+                    <div id="officeResults" class="office-results">
+                        <div class="office-item">
+                            <div class="office-header">
+                                <h4><i class="fas fa-bolt"></i> EB Office - Main Branch</h4>
+                                <span class="distance">2.5 km</span>
+                            </div>
+                            <p><i class="fas fa-map-marker-alt"></i> 123 Power Street, City Center</p>
+                            <p><i class="fas fa-phone"></i> +91-XXXX-XXXX</p>
+                            <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                            <button class="btn-small" onclick="getDirections()">Get Directions</button>
+                        </div>
+                        <div class="office-item">
+                            <div class="office-header">
+                                <h4><i class="fas fa-file-alt"></i> Ration Office - Branch 2</h4>
+                                <span class="distance">3.2 km</span>
+                            </div>
+                            <p><i class="fas fa-map-marker-alt"></i> 456 Food Street, Market Area</p>
+                            <p><i class="fas fa-phone"></i> +91-YYYY-YYYY</p>
+                            <p><i class="fas fa-clock"></i> Tue-Sat: 10:00 AM - 4:00 PM</p>
+                            <button class="btn-small" onclick="getDirections()">Get Directions</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+        </div>
+        <div class="testimonials-carousel">
+            <div class="testimonials-track">
+                <!-- Original Cards -->
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"SaralSeva AI saved me hours of running around government offices. The AI guidance was clear and helpful!"</p>
+                    <div class="testimonial-author">
+                        <strong>Rajesh Kumar</strong>
+                        <span>EB Bill Service User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The document validation feature is amazing. It caught missing information before I submitted my application!"</p>
+                    <div class="testimonial-author">
+                        <strong>Priya Singh</strong>
+                        <span>Ration Card User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Available 24/7 in my language! This is exactly what I needed for my water connection issue."</p>
+                    <div class="testimonial-author">
+                        <strong>Arjun Patel</strong>
+                        <span>Water Service User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Property tax calculation was so confusing before. SaralSeva AI explained everything step by step!"</p>
+                    <div class="testimonial-author">
+                        <strong>Meena Sharma</strong>
+                        <span>Property Tax User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Filed my police complaint online with complete guidance. The process was smooth and easy!"</p>
+                    <div class="testimonial-author">
+                        <strong>Vikram Reddy</strong>
+                        <span>Police Complaints User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Road repair complaint was resolved within a week! SaralSeva AI helped me connect with the right department."</p>
+                    <div class="testimonial-author">
+                        <strong>Lakshmi Devi</strong>
+                        <span>Civic Services User</span>
+                    </div>
+                </div>
+
+                <!-- Duplicate Cards for Seamless Loop -->
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"SaralSeva AI saved me hours of running around government offices. The AI guidance was clear and helpful!"</p>
+                    <div class="testimonial-author">
+                        <strong>Rajesh Kumar</strong>
+                        <span>EB Bill Service User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The document validation feature is amazing. It caught missing information before I submitted my application!"</p>
+                    <div class="testimonial-author">
+                        <strong>Priya Singh</strong>
+                        <span>Ration Card User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Available 24/7 in my language! This is exactly what I needed for my water connection issue."</p>
+                    <div class="testimonial-author">
+                        <strong>Arjun Patel</strong>
+                        <span>Water Service User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Property tax calculation was so confusing before. SaralSeva AI explained everything step by step!"</p>
+                    <div class="testimonial-author">
+                        <strong>Meena Sharma</strong>
+                        <span>Property Tax User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Filed my police complaint online with complete guidance. The process was smooth and easy!"</p>
+                    <div class="testimonial-author">
+                        <strong>Vikram Reddy</strong>
+                        <span>Police Complaints User</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Road repair complaint was resolved within a week! SaralSeva AI helped me connect with the right department."</p>
+                    <div class="testimonial-author">
+                        <strong>Lakshmi Devi</strong>
+                        <span>Civic Services User</span>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-fade-left"></div>
+            <div class="carousel-fade-right"></div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Simplify Your Government Services?</h2>
+            <p>Join thousands of citizens using SaralSeva AI for hassle-free government assistance</p>
+            <div class="cta-buttons">
+                <button class="btn-primary-large" onclick="window.location.href='pages/register-new.html'">Get Started Now</button>
+                <button class="btn-secondary-large" onclick="window.location.href='pages/login-new.html'">Sign In</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SaralSeva AI</h3>
+                    <p>Making government services simple, accessible, and hassle-free for everyone.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">EB Bill Management</a></li>
+                        <li><a href="#services">Ration Card Services</a></li>
+                        <li><a href="#services">Water Connection</a></li>
+                        <li><a href="#services">Property Tax</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SaralSeva AI. All rights reserved. | Making Government Services Simple</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Dialogs -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="login-container">
+            <span class="close" onclick="closeLogin()">&times;</span>
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue to SaralSeva AI</p>
+            </div>
+            <form onsubmit="handleLogin(event)" class="login-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="loginEmail" required placeholder="Email Address">
+                    <span class="input-highlight"></span>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="loginPassword" required placeholder="Password">
+                    <span class="input-highlight"></span>
+                    <button type="button" class="toggle-password" onclick="togglePassword('loginPassword')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="login-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                <button type="submit" class="login-btn">
+                    <span>Sign In</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <div class="divider">
+                    <span>or continue with</span>
+                </div>
+                <div class="social-login">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </button>
+                    <button type="button" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </button>
+                    <button type="button" class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </button>
+                </div>
+                <p class="signup-link">Don't have an account? <a href="#" onclick="switchToRegister()">Sign Up</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegister()">&times;</span>
+            <h2>Create Your Account</h2>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="registerLanguage">Preferred Language</label>
+                    <select id="registerLanguage" required>
+                        <option value="">Select Language</option>
+                        <option value="english">English</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="tamil">Tamil</option>
+                        <option value="telugu">Telugu</option>
+                        <option value="kannada">Kannada</option>
+                        <option value="marathi">Marathi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email Address</label>
+                    <input type="email" id="registerEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required placeholder="Create a password">
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="agreeTerms" required>
+                    <label for="agreeTerms">I agree to the Terms of Service</label>
+                </div>
+                <button type="submit" class="btn-primary">Create Account</button>
+                <p class="form-link">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Demo Modal -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content demo-content">
+            <span class="close" onclick="closeDemo()">&times;</span>
+            <h2>SaralSeva AI Demo</h2>
+            <div class="demo-video">
+                <iframe width="100%" height="400" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="SaralSeva AI Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p>Watch how SaralSeva AI helps thousands of citizens with government services every day.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Theme Toggle Functionality
+        function initTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.querySelector('#themeToggle i');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        }
+
+        // Initialize theme on page load
+        initTheme();
+    </script>
+    <script src="js/shader-background.js"></script>
+    <script src="js/testimonials.js"></script>
+    <script src="js/services-scroll.js"></script>
+</body>
+
+</html>

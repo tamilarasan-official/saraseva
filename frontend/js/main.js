@@ -14,12 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeApp() {
     const currentPage = getCurrentPage();
 
+    console.log('Current page:', currentPage);
+
     // Initialize page-specific functionality
     switch (currentPage) {
         case 'register':
+        case 'register-new':
             initRegisterPage();
             break;
         case 'login':
+        case 'login-new':
             initLoginPage();
             break;
         case 'home':
@@ -122,10 +126,16 @@ function validateRegistrationForm(data) {
  */
 function initLoginPage() {
     const loginForm = document.getElementById('loginForm');
-    if (!loginForm) return;
+    if (!loginForm) {
+        console.error('Login form not found!');
+        return;
+    }
+
+    console.log('Login page initialized');
 
     loginForm.addEventListener('submit', async(e) => {
         e.preventDefault();
+        console.log('Login form submitted');
 
         const submitBtn = loginForm.querySelector('button[type="submit"]');
         UIUtils.showLoading(submitBtn);
@@ -135,20 +145,32 @@ function initLoginPage() {
             password: document.getElementById('loginPassword').value
         };
 
-        const result = await AuthService.login(credentials);
-        UIUtils.hideLoading(submitBtn);
+        console.log('Attempting login with email:', credentials.email);
 
-        if (result.success) {
-            UIUtils.showToast('Login successful!', 'success');
-            setTimeout(() => {
-                window.location.href = 'home.html';
-            }, 1000);
-        } else {
-            if (result.errors && Array.isArray(result.errors)) {
-                result.errors.forEach(error => UIUtils.showToast(error, 'error'));
+        try {
+            const result = await AuthService.login(credentials);
+            console.log('Login result:', result);
+
+            UIUtils.hideLoading(submitBtn);
+
+            if (result.success) {
+                UIUtils.showToast('Login successful!', 'success');
+                console.log('Login successful, redirecting to home...');
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 1000);
             } else {
-                UIUtils.showToast(result.error || 'Login failed', 'error');
+                console.error('Login failed:', result);
+                if (result.errors && Array.isArray(result.errors)) {
+                    result.errors.forEach(error => UIUtils.showToast(error, 'error'));
+                } else {
+                    UIUtils.showToast(result.error || 'Login failed', 'error');
+                }
             }
+        } catch (error) {
+            console.error('Login error:', error);
+            UIUtils.hideLoading(submitBtn);
+            UIUtils.showToast('An error occurred. Please try again.', 'error');
         }
     });
 }
@@ -221,18 +243,9 @@ function initLogoutButton() {
                 await AuthService.logout();
                 UIUtils.showToast('Logged out successfully', 'success');
                 setTimeout(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = '../index.html';
                 }, 1000);
             }
         });
     }
-}
-if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        if (confirm("Are you sure you want to logout?")) {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-            window.location.href = "index.html";
-        }
-    });
 }

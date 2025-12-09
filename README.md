@@ -1,23 +1,93 @@
-# SaralSeva AI
+# SaralSeva AI - Smart Government Services Platform
 
-A comprehensive government services platform that helps users navigate EB, Ration, Water & Civic Services with AI-powered assistance.
+A modern, production-ready web application for simplifying government services with AI assistance.
 
-## Project Structure
+## ✨ Features
+
+- 🤖 **AI Chatbot** - Get instant answers to government service questions
+- 📄 **Document Verification** - Verify documents before submission
+- 📍 **Office Locator** - Find nearby government offices with directions
+- 📝 **Auto-fill Forms** - AI-powered form filling assistance
+- 🔐 **Secure Authentication** - JWT-based user authentication
+- 📱 **Responsive Design** - Works on all devices
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js (v16 or higher) - [Download](https://nodejs.org/)
+- MySQL (optional, for production) - [Download](https://dev.mysql.com/downloads/)
+
+### Installation
+
+1. **Clone the repository**
+   ```cmd
+   git clone https://github.com/jeeva-off/WEB-TECH-project.git
+   cd WEB-TECH-project
+   ```
+
+2. **Run the application**
+   ```cmd
+   START.bat
+   ```
+   This will automatically install dependencies and start both servers.
+
+3. **Access the application**
+   - Frontend: http://localhost:8000
+   - Backend API: http://localhost:3000
+
+### Manual Setup
+
+#### Backend
+```cmd
+cd backend
+npm install
+node server.js
+```
+
+#### Frontend
+```cmd
+cd frontend
+npm install
+npx http-server -p 8000
+```
+
+## 🏗️ Architecture
+
+### Backend (Node.js + Express)
+- **RESTful API** with Express.js
+- **JWT Authentication** for secure user sessions
+- **MySQL/In-Memory Database** support
+- **Rate Limiting** to prevent abuse
+- **Winston Logging** for debugging
+- **Input Validation** with express-validator
+- **Error Handling** middleware
+
+### Frontend (Vanilla JS + TailwindCSS)
+- **Modern UI** with Tailwind CSS
+- **Modular JavaScript** architecture
+- **API Client** with Axios
+- **Responsive Design** for all devices
+- **Progressive Enhancement**
+
+## 📁 Project Structure
 
 ```
-saralseva-ai/
+WEB-TECH-project/
 │
-├── frontend/              # HTML + Tailwind CSS + JavaScript
-│   ├── pages/
-│   │   ├── index.html    # Landing page
-│   │   ├── register.html # User registration
-│   │   ├── login.html    # User login
-│   │   └── home.html     # Dashboard
-│   ├── assets/
-│   │   ├── images/
-│   │   └── css/
-│   └── js/
-│       └── main.js       # Frontend logic
+├── backend/              # Node.js API Server
+│   ├── config/          # Database configuration
+│   ├── controllers/     # Business logic
+│   ├── middleware/      # Express middleware
+│   ├── models/         # Data models
+│   ├── routes/         # API routes
+│   ├── utils/          # Utilities
+│   └── server.js       # Entry point
+│
+└── frontend/            # Static Frontend
+    ├── js/             # JavaScript modules
+    ├── pages/          # HTML pages
+    └── index.html      # Landing page
 │
 └── backend/               # Node.js + Express + MongoDB
     ├── server.js         # Main server file

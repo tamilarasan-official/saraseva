@@ -1,79 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - SaralSeva Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SaralSeva Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .service-card:hover::before {
+            left: 100%;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-card:active {
+            transform: translateY(-4px) scale(1.01);
+        }
+        
+        .icon-container {
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover .icon-container {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        .stats-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .activity-item {
+            transition: all 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+            transform: translateX(8px);
+        }
+        
+        .stat-number {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        /* Dark Theme Styles */
+        
+        [data-theme="dark"] body {
+            background: linear-gradient(to bottom right, #1a202c, #2d3748, #4a5568) !important;
+        }
+        
+        [data-theme="dark"] .stats-card {
+            background: rgba(45, 55, 72, 0.9) !important;
+            border-color: rgba(74, 85, 104, 0.3) !important;
+        }
+        
+        [data-theme="dark"] .stats-card p,
+        [data-theme="dark"] h2,
+        [data-theme="dark"] h3,
+        [data-theme="dark"] .text-gray-800,
+        [data-theme="dark"] .text-gray-600 {
+            color: #e2e8f0 !important;
+        }
+        
+        [data-theme="dark"] .service-card {
+            background: rgba(45, 55, 72, 0.95) !important;
+            border: 1px solid rgba(74, 85, 104, 0.3) !important;
+        }
+        
+        [data-theme="dark"] .service-card h3,
+        [data-theme="dark"] .service-card p {
+            color: #e2e8f0 !important;
+        }
+        
+        [data-theme="dark"] .bg-white {
+            background: rgba(45, 55, 72, 0.95) !important;
+        }
+        
+        [data-theme="dark"] .activity-item:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%) !important;
+        }
+        
+        [data-theme="dark"] .text-gray-400 {
+            color: #a0aec0 !important;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 min-h-screen">
 
-  <!-- Navigation -->
-  <nav class="bg-blue-600 text-white p-4 shadow-lg">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <h1 class="text-2xl font-bold">SaralSeva AI</h1>
-      <div class="flex items-center gap-4">
-        <span id="userName" class="font-medium">Welcome, User</span>
-        <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition">Logout</button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Main Dashboard -->
-  <main class="max-w-6xl mx-auto px-4 py-8">
-
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Dashboard</h2>
-
-    <!-- Service Cards Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-      <!-- Chatbot Card -->
-      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='chatbot.html'">
-        <span class="text-blue-600 text-4xl block mb-3">💬</span>
-        <span class="text-xl font-bold text-gray-800 block mb-2">AI Chatbot</span>
-        <span class="text-gray-600 text-sm block">Get instant answers to your government service questions</span>
-      </button>
-
-      <!-- Document Check Card -->
-      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='document-check.html'">
-        <span class="text-green-600 text-4xl block mb-3">📄</span>
-        <span class="text-xl font-bold text-gray-800 block mb-2">Document Check</span>
-        <span class="text-gray-600 text-sm block">Verify your documents before submission</span>
-      </button>
-
-      <!-- Office Locator Card -->
-      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='office-locator.html'">
-        <span class="text-purple-600 text-4xl block mb-3">📍</span>
-        <span class="text-xl font-bold text-gray-800 block mb-2">Office Locator</span>
-        <span class="text-gray-600 text-sm block">Find nearby government offices with directions</span>
-      </button>
-
-      <!-- Auto Fill Card -->
-      <button type="button" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition cursor-pointer text-left block w-full" onclick="window.location.href='autofill.html'">
-        <span class="text-orange-600 text-4xl block mb-3">✏️</span>
-        <span class="text-xl font-bold text-gray-800 block mb-2">Auto Form Fill</span>
-        <span class="text-gray-600 text-sm block">Automatically fill government forms with your data</span>
-      </button>
-
-    </div>
-
-    <!-- Recent Activity Section -->
-    <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
-      <h3 class="text-2xl font-bold text-gray-800 mb-4">Recent Activity</h3>
-      <div class="space-y-3">
-        <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">1</div>
-          <div>
-            <p class="font-medium text-gray-800">Welcome to SaralSeva AI</p>
-            <p class="text-sm text-gray-600">Start by exploring our services above</p>
-          </div>
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-2xl sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-lg backdrop-blur">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-2xl font-bold">SaralSeva AI</h1>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="themeToggle" onclick="toggleTheme()" class="bg-white bg-opacity-20 hover:bg-opacity-30 p-2.5 rounded-lg backdrop-blur transition-all duration-200" title="Toggle theme">
+                        <svg class="w-5 h-5" id="themeIcon" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                    <div class="hidden md:flex items-center gap-2 bg-white bg-opacity-20 px-4 py-2 rounded-lg backdrop-blur">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                        </svg>
+                        <span id="userName" class="font-medium">Welcome, Test User</span>
+                    </div>
+                    <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 active:bg-red-700 px-5 py-2.5 rounded-lg transition-all duration-200 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0">
+                        Logout
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </nav>
 
-  </main>
+    <!-- Main Dashboard -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
 
-  <script src="../js/main.js"></script>
+        <!-- Welcome Section -->
+        <div class="mb-8 animate-fadeInUp">
+            <h2 class="text-4xl font-bold text-gray-800 mb-2">Helper</h2>
+            <p class="text-gray-600">Welcome back! Choose a service to get started</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 animate-fadeInUp" style="animation-delay: 0.1s;">
+            <div class="stats-card rounded-2xl p-6 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Total Services</p>
+                        <h3 class="text-3xl font-bold text-blue-600 stat-number">4</h3>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-xl">
+                        <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card rounded-2xl p-6 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Quick Access</p>
+                        <h3 class="text-3xl font-bold text-green-600 stat-number">24/7</h3>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-xl">
+                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card rounded-2xl p-6 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">AI Powered</p>
+                        <h3 class="text-3xl font-bold text-purple-600 stat-number">100%</h3>
+                    </div>
+                    <div class="bg-purple-100 p-3 rounded-xl">
+                        <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 7H7v6h6V7z"/>
+                            <path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-card rounded-2xl p-6 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-600 text-sm font-medium">Secure</p>
+                        <h3 class="text-3xl font-bold text-orange-600 stat-number">✓</h3>
+                    </div>
+                    <div class="bg-orange-100 p-3 rounded-xl">
+                        <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Cards Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+            <!-- Chatbot Card -->
+            <button type="button" class="service-card bg-white rounded-2xl shadow-xl p-8 text-left block w-full animate-fadeInUp" onclick="window.location.href='chatbot.html'" style="animation-delay: 0.2s;">
+                <div class="icon-container mb-4">
+                    <div class="bg-gradient-to-br from-blue-400 to-blue-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-4xl">💬</span>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">AI Chatbot</h3>
+                <p class="text-gray-600 mb-4">Get instant answers to your government service questions</p>
+                <div class="flex items-center text-blue-600 font-semibold">
+                    <span class="mr-2">Get Started</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Document Check Card -->
+            <button type="button" class="service-card bg-white rounded-2xl shadow-xl p-8 text-left block w-full animate-fadeInUp" onclick="window.location.href='document-check.html'" style="animation-delay: 0.3s;">
+                <div class="icon-container mb-4">
+                    <div class="bg-gradient-to-br from-green-400 to-green-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-4xl">📄</span>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Document Check</h3>
+                <p class="text-gray-600 mb-4">Verify your documents before submission</p>
+                <div class="flex items-center text-green-600 font-semibold">
+                    <span class="mr-2">Verify Now</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Office Locator Card -->
+            <button type="button" class="service-card bg-white rounded-2xl shadow-xl p-8 text-left block w-full animate-fadeInUp" onclick="window.location.href='office-locator.html'" style="animation-delay: 0.4s;">
+                <div class="icon-container mb-4">
+                    <div class="bg-gradient-to-br from-purple-400 to-purple-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-4xl">📍</span>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Office Locator</h3>
+                <p class="text-gray-600 mb-4">Find nearby government offices with directions</p>
+                <div class="flex items-center text-purple-600 font-semibold">
+                    <span class="mr-2">Find Offices</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Auto Fill Card -->
+            <button type="button" class="service-card bg-white rounded-2xl shadow-xl p-8 text-left block w-full animate-fadeInUp" onclick="window.location.href='autofill.html'" style="animation-delay: 0.5s;">
+                <div class="icon-container mb-4">
+                    <div class="bg-gradient-to-br from-orange-400 to-orange-600 w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg">
+                        <span class="text-4xl">✏️</span>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Auto Form Fill</h3>
+                <p class="text-gray-600 mb-4">Automatically fill government forms with your data</p>
+                <div class="flex items-center text-orange-600 font-semibold">
+                    <span class="mr-2">Fill Forms</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
+                </div>
+            </button>
+
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 animate-fadeInUp" style="animation-delay: 0.6s;">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold text-gray-800">Recent Activity</h3>
+                <span class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-semibold">New</span>
+            </div>
+            <div class="space-y-4">
+                <div class="activity-item flex items-center gap-4 p-4 rounded-xl cursor-pointer">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                        1
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold text-gray-800">Welcome to SaralSeva AI</p>
+                        <p class="text-sm text-gray-600">Start by exploring our services above</p>
+                    </div>
+                    <div class="text-gray-400">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Load Scripts in correct order -->
+    <script src="../js/config.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Theme Toggle Functionality
+        function initTheme() {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                if (theme === 'dark') {
+                    icon.innerHTML = '<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>';
+                } else {
+                    icon.innerHTML = '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
+                }
+            }
+        }
+
+        // Initialize theme on page load
+        initTheme();
+    </script>
 </body>
+
 </html>

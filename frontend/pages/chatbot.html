@@ -1,307 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>SaralSeva AI – Chatbot Assistant</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .voice-pulse {
-      animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    @keyframes pulse-ring {
-      0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.5;
-        transform: scale(1.1);
-      }
-    }
-    .recording-animation {
-      animation: recording-pulse 1s ease-in-out infinite;
-    }
-    @keyframes recording-pulse {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <title>SaralSeva AI – Chatbot Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @keyframes glowPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 20px 5px rgba(59, 130, 246, 0.5), 0 0 40px 10px rgba(59, 130, 246, 0.3), 0 0 60px 15px rgba(59, 130, 246, 0.1);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 30px 10px rgba(239, 68, 68, 0.6), 0 0 60px 20px rgba(239, 68, 68, 0.4), 0 0 90px 30px rgba(239, 68, 68, 0.2);
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes ripple {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7), 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 0 20px rgba(239, 68, 68, 0), 0 0 0 40px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0), 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        .voice-sphere {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sphere-outer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ff69b4, #ff1493, #8b0054);
+            box-shadow: 0 0 40px rgba(255, 105, 180, 0.8), 0 0 80px rgba(255, 105, 180, 0.6), 0 0 120px rgba(255, 105, 180, 0.4), inset 0 0 40px rgba(255, 20, 147, 0.3);
+            animation: spherePulse 2s ease-in-out infinite, sphereGlow 3s ease-in-out infinite;
+        }
+        
+        .sphere-inner {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
+            animation: cubeRotate 4s ease-in-out infinite, cubePulse 2s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+        
+        @keyframes spherePulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes sphereGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 40px rgba(255, 105, 180, 0.8), 0 0 80px rgba(255, 105, 180, 0.6), 0 0 120px rgba(255, 105, 180, 0.4), inset 0 0 40px rgba(255, 20, 147, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 60px rgba(255, 105, 180, 1), 0 0 100px rgba(255, 105, 180, 0.8), 0 0 140px rgba(255, 105, 180, 0.6), inset 0 0 50px rgba(255, 20, 147, 0.5);
+            }
+        }
+        
+        @keyframes cubeRotate {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            50% {
+                transform: rotateX(180deg) rotateY(180deg);
+            }
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+        
+        @keyframes cubePulse {
+            0%,
+            100% {
+                transform: scale(1) rotateX(0deg) rotateY(0deg);
+                opacity: 0.9;
+            }
+            50% {
+                transform: scale(1.1) rotateX(180deg) rotateY(180deg);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .voice-sphere {
+                width: 140px;
+                height: 140px;
+            }
+            .sphere-inner {
+                width: 55px;
+                height: 55px;
+            }
+        }
+        
+        .message-enter {
+            animation: messageSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-indicator span {
+            animation: typingDot 1.4s infinite;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typingDot {
+            0%,
+            60%,
+            100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+        }
+        /* Custom scrollbar */
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-slate-100">
+<body class="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 overflow-hidden">
 
-  <!-- Top bar -->
-  <header class="border-b border-white/10 bg-slate-900/70 backdrop-blur sticky top-0 z-10">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="home.html" class="flex items-center gap-2">
-        <div class="h-8 w-8 bg-blue-600 text-white rounded-xl flex items-center justify-center text-sm font-bold shadow-lg shadow-blue-500/40">
-          SS
-        </div>
-        <div class="leading-tight">
-          <p class="text-sm font-semibold">SaralSeva AI – Chatbot</p>
-          <p class="text-[10px] text-slate-400">Ask about EB, Ration, Water & Civic services</p>
-        </div>
-      </a>
-      <a href="index.html"
-         class="text-xs text-slate-200 border border-slate-600/60 px-3 py-1.5 rounded-lg hover:bg-slate-800 transition">
-        ← Back 
-      </a>
-    </div>
-  </header>
-
-  <!-- Main -->
-  <main class="max-w-4xl mx-auto px-4 py-6">
-    <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl h-[70vh] flex flex-col overflow-hidden">
-
-      <!-- Chat header -->
-      <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <div class="relative">
-            <div class="h-9 w-9 bg-gradient-to-br from-blue-500 to-cyan-400 text-white rounded-full flex items-center justify-center text-xs font-semibold shadow-lg shadow-blue-500/40">
-              AI
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-lg backdrop-blur">
+                        <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/>
+              <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/>
+            </svg>
+                    </div>
+                    <div class="leading-tight">
+                        <h1 class="text-base sm:text-xl font-bold">SaralSeva AI – Chatbot</h1>
+                        <p class="text-[10px] sm:text-xs text-white/80 hidden sm:block">Ask about EB, Ration, Water & Civic services</p>
+                    </div>
+                </div>
+                <a href="home.html" class="text-xs sm:text-sm bg-white bg-opacity-20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-opacity-30 transition backdrop-blur font-medium">
+          ← Back
+        </a>
             </div>
-            <span class="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full bg-emerald-500 border border-slate-900"></span>
-          </div>
-          <div class="leading-tight">
-            <p class="text-xs font-semibold">SaralSeva Assistant</p>
-            <p class="text-[10px] text-slate-300">Online · Typically replies in a few seconds</p>
-          </div>
         </div>
-        <div class="hidden sm:flex items-center gap-2 text-[10px] text-slate-400">
-          <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-          Secured demo chat
-        </div>
-      </div>
+    </nav>
 
-      <!-- Messages area -->
-      <div id="chatArea" class="flex-1 px-4 py-4 space-y-2 overflow-y-auto text-xs scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900/40">
-        <!-- Initial bot message -->
-        <div class="max-w-[80%] bg-slate-800/70 border border-slate-700 rounded-2xl rounded-bl-sm px-3 py-2 text-slate-50 shadow-sm">
-          <p>👋 Hi! I’m <span class="font-semibold text-blue-300">SaralSeva AI</span>.</p>
-          <p class="mt-1 text-[11px] text-slate-300">
-            You can ask things like:
-          </p>
-          <ul class="mt-1 list-disc list-inside text-[11px] text-slate-300 space-y-0.5">
-            <li>“How to change EB name to my name?”</li>
-            <li>“Documents needed for ration address change?”</li>
-            <li>“How to apply for new water connection?”</li>
-          </ul>
-        </div>
-      </div>
+    <!-- Main Chat Container -->
+    <main class="h-[calc(100vh-64px)] sm:h-[calc(100vh-72px)] flex flex-col">
+        <div class="flex-1 max-w-7xl w-full mx-auto px-2 sm:px-4 py-3 sm:py-4 flex flex-col">
 
-      <!-- Input area -->
-      <form id="chatForm" class="px-3 py-3 border-t border-white/10 bg-slate-900/70">
-        <div class="flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900/80 px-3 py-2">
-          <button
-            type="button"
-            id="voiceBtn"
-            class="flex-shrink-0 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition"
-            title="Voice input">
-            <svg id="micIcon" class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-            </svg>
-          </button>
-          <input
-            id="chatInput"
-            class="flex-1 bg-transparent text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none"
-            placeholder="Type or speak your question..." />
-          <button
-            type="submit"
-            class="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-xl shadow-md shadow-blue-500/40 transition">
-            <span>Send</span>
-            <span class="text-[10px]">➤</span>
-          </button>
-          <button
-            type="button"
-            id="speakBtn"
-            class="flex-shrink-0 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition"
-            title="Read last message aloud">
-            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
-            </svg>
-          </button>
+            <!-- Chat Window -->
+            <div class="flex-1 bg-white/90 backdrop-blur-xl rounded-2xl sm:rounded-3xl shadow-2xl border border-white/20 flex flex-col overflow-hidden">
+
+                <!-- Chat Header -->
+                <div class="px-3 sm:px-6 py-3 sm:py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2 sm:gap-3">
+                            <div class="relative">
+                                <div class="h-10 w-10 sm:h-12 sm:w-12 bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center text-sm sm:text-base font-bold shadow-lg">
+                                    AI
+                                </div>
+                                <span class="absolute -right-0.5 -bottom-0.5 h-3 w-3 sm:h-3.5 sm:w-3.5 rounded-full bg-green-500 border-2 border-white"></span>
+                            </div>
+                            <div class="leading-tight">
+                                <p class="text-sm sm:text-base font-bold text-gray-800">SaralSeva Assistant</p>
+                                <p class="text-[10px] sm:text-xs text-gray-600">Online · Replies instantly</p>
+                            </div>
+                        </div>
+                        <div class="hidden sm:flex items-center gap-2 text-xs text-gray-500 bg-white/50 px-3 py-1.5 rounded-full">
+                            <span class="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span> Secured chat
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Messages Area -->
+                <div id="chatArea" class="flex-1 px-3 sm:px-6 py-4 space-y-3 sm:space-y-4 overflow-y-auto custom-scrollbar">
+                    <!-- Initial bot message -->
+                    <div class="flex justify-start message-enter">
+                        <div class="max-w-[85%] sm:max-w-[75%] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-md">
+                            <div class="flex items-start gap-2">
+                                <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                                    AI
+                                </div>
+                                <div class="flex-1">
+                                    <p class="text-sm sm:text-base text-gray-800 font-medium">👋 Hi! I'm <span class="text-blue-600">SaralSeva AI</span></p>
+                                    <p class="mt-2 text-xs sm:text-sm text-gray-600">
+                                        You can ask me about:
+                                    </p>
+                                    <ul class="mt-2 space-y-1 text-xs sm:text-sm text-gray-700">
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-blue-500">•</span>
+                                            <span>"How to change EB name to my name?"</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-green-500">•</span>
+                                            <span>"Documents needed for ration address change?"</span>
+                                        </li>
+                                        <li class="flex items-start gap-2">
+                                            <span class="text-purple-500">•</span>
+                                            <span>"How to apply for new water connection?"</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <form id="chatForm" class="px-3 sm:px-6 py-3 sm:py-4 border-t border-gray-200 bg-gradient-to-r from-blue-50/50 to-purple-50/50 backdrop-blur">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <div class="flex-1 flex items-center gap-2 sm:gap-3 bg-white rounded-xl sm:rounded-2xl border-2 border-gray-200 focus-within:border-blue-400 px-3 sm:px-4 py-2 sm:py-3 shadow-sm transition-all">
+                            <input id="chatInput" class="flex-1 bg-transparent text-sm sm:text-base text-gray-800 placeholder:text-gray-400 focus:outline-none" placeholder="Type your question..." />
+                            <button type="button" id="voiceBtn" class="flex-shrink-0 p-2 sm:p-2.5 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all shadow-md" title="Voice input">
+                <svg id="micIcon" class="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                </svg>
+              </button>
+                        </div>
+                        <button type="submit" class="flex-shrink-0 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95">
+              <span class="hidden sm:inline">Send</span>
+              <svg class="w-5 h-5 sm:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+                        <button type="button" id="speakBtn" class="hidden sm:flex flex-shrink-0 p-2.5 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 transition-all shadow-md" title="Read last message aloud">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+              </svg>
+            </button>
+                    </div>
+                    <div class="mt-2 flex items-center justify-between text-[10px] sm:text-xs text-gray-500">
+                        <span class="flex items-center gap-1">
+              <span>🎤</span> Voice & <span>🔊</span> Speech enabled
+                        </span>
+                        <span id="voiceStatus" class="hidden text-red-500 font-medium animate-pulse">● Recording...</span>
+                    </div>
+                </form>
+            </div>
         </div>
-        <p class="mt-1 text-[10px] text-slate-500">
-          🎤 Voice input & 🔊 text-to-speech enabled • Demo responses are rule-based
-        </p>
-      </form>
+    </main>
+
+    <!-- Voice Sphere Modal (shown when recording) -->
+    <div id="voiceOrbModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="voice-sphere mx-auto">
+                <div class="sphere-outer"></div>
+                <div class="sphere-inner"></div>
+            </div>
+            <p class="mt-8 text-white text-lg sm:text-xl font-semibold animate-pulse">Listening...</p>
+            <p class="mt-2 text-white/80 text-sm sm:text-base">Speak now</p>
+            <button id="stopRecordingBtn" class="mt-8 bg-white/20 hover:bg-white/30 text-white px-8 py-3 rounded-full backdrop-blur-sm transition-all transform hover:scale-105 font-medium shadow-lg">
+        Stop Recording
+      </button>
+        </div>
     </div>
-  </main>
+    <script>
+        const chatArea = document.getElementById("chatArea");
+        const chatForm = document.getElementById("chatForm");
+        const chatInput = document.getElementById("chatInput");
+        const voiceBtn = document.getElementById("voiceBtn");
+        const speakBtn = document.getElementById("speakBtn");
+        const voiceStatus = document.getElementById("voiceStatus");
+        const voiceOrbModal = document.getElementById("voiceOrbModal");
+        const stopRecordingBtn = document.getElementById("stopRecordingBtn");
 
-  <script>
-    const chatArea = document.getElementById("chatArea");
-    const chatForm = document.getElementById("chatForm");
-    const chatInput = document.getElementById("chatInput");
-    const voiceBtn = document.getElementById("voiceBtn");
-    const speakBtn = document.getElementById("speakBtn");
-    const micIcon = document.getElementById("micIcon");
+        let recognition = null;
+        let isRecording = false;
+        let lastBotMessage = "";
 
-    let recognition = null;
-    let isRecording = false;
-    let lastBotMessage = "";
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
 
-    // Initialize Speech Recognition
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognition = new SpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-IN';
+            recognition.onstart = () => {
+                isRecording = true;
+                voiceStatus.classList.remove('hidden');
+                voiceOrbModal.classList.remove('hidden');
+            };
 
-      recognition.onstart = () => {
-        isRecording = true;
-        voiceBtn.classList.add('recording-animation', 'bg-red-500');
-        voiceBtn.classList.remove('bg-slate-800');
-        micIcon.classList.add('text-white');
-        micIcon.classList.remove('text-slate-400');
-      };
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                stopRecording();
+            };
 
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        chatInput.value = transcript;
-        chatInput.focus();
-      };
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                stopRecording();
+                alert('Voice recognition error: ' + event.error);
+            };
 
-      recognition.onerror = (event) => {
-        console.error('Speech recognition error:', event.error);
-        if (event.error === 'no-speech') {
-          addBubble('No speech detected. Please try again.', 'bot');
-        } else if (event.error === 'not-allowed') {
-          addBubble('Microphone access denied. Please enable microphone permissions.', 'bot');
+            recognition.onend = () => {
+                stopRecording();
+            };
+        } else {
+            voiceBtn.disabled = true;
+            voiceBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            voiceBtn.title = 'Speech recognition not supported';
         }
-      };
 
-      recognition.onend = () => {
-        isRecording = false;
-        voiceBtn.classList.remove('recording-animation', 'bg-red-500');
-        voiceBtn.classList.add('bg-slate-800');
-        micIcon.classList.remove('text-white');
-        micIcon.classList.add('text-slate-400');
-      };
-    }
+        function stopRecording() {
+            if (recognition && isRecording) {
+                recognition.stop();
+            }
+            isRecording = false;
+            voiceStatus.classList.add('hidden');
+            voiceOrbModal.classList.add('hidden');
+        }
 
-    // Voice input button
-    voiceBtn.addEventListener('click', () => {
-      if (!recognition) {
-        addBubble('⚠️ Speech recognition is not supported in your browser. Try Chrome or Edge.', 'bot');
-        return;
-      }
 
-      if (isRecording) {
-        recognition.stop();
-      } else {
-        recognition.start();
-      }
-    });
+        // Voice input button
+        voiceBtn.addEventListener('click', () => {
+            if (!recognition) {
+                alert('Speech recognition is not supported in your browser.');
+                return;
+            }
 
-    // Text-to-speech button
-    speakBtn.addEventListener('click', () => {
-      if (!lastBotMessage) {
-        return;
-      }
+            if (isRecording) {
+                stopRecording();
+            } else {
+                try {
+                    recognition.start();
+                } catch (error) {
+                    console.error('Failed to start speech recognition:', error);
+                    alert('Failed to start voice input. Please try again.');
+                }
+            }
+        });
 
-      if ('speechSynthesis' in window) {
-        // Cancel any ongoing speech
-        window.speechSynthesis.cancel();
+        // Stop recording button in modal
+        stopRecordingBtn.addEventListener("click", stopRecording);
 
-        const utterance = new SpeechSynthesisUtterance(lastBotMessage);
-        utterance.lang = 'en-IN';
-        utterance.rate = 0.9;
-        utterance.pitch = 1;
+        // Text-to-speech button
+        speakBtn.addEventListener('click', () => {
+            if (!lastBotMessage) {
+                alert("No message to read!");
+                return;
+            }
 
-        // Visual feedback
-        speakBtn.classList.add('voice-pulse');
-        utterance.onend = () => {
-          speakBtn.classList.remove('voice-pulse');
-        };
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
 
-        window.speechSynthesis.speak(utterance);
-      } else {
-        addBubble('⚠️ Text-to-speech is not supported in your browser.', 'bot');
-      }
-    });
+                const utterance = new SpeechSynthesisUtterance(lastBotMessage);
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                utterance.volume = 1;
 
-    function addBubble(msg, type) {
-      const wrapper = document.createElement("div");
+                // Highlight button while speaking
+                speakBtn.classList.add('ring-2', 'ring-green-300');
+                utterance.onend = () => {
+                    speakBtn.classList.remove('ring-2', 'ring-green-300');
+                };
 
-      if (type === "user") {
-        wrapper.className = "flex justify-end";
-        wrapper.innerHTML = `
-          <div class="max-w-[80%] bg-blue-600 text-white px-3 py-2 rounded-2xl rounded-br-sm shadow-md shadow-blue-500/40">
-            ${msg}
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Text-to-speech not supported in your browser.");
+            }
+        });
+
+        function addBubble(msg, type) {
+            const wrapper = document.createElement("div");
+
+            if (type === "user") {
+                wrapper.className = "flex justify-end message-enter";
+                wrapper.innerHTML = `
+          <div class="max-w-[85%] sm:max-w-[75%] bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-md">
+            <p class="text-sm sm:text-base">${msg}</p>
           </div>
         `;
-      } else {
-        wrapper.className = "flex justify-start";
-        wrapper.innerHTML = `
-          <div class="max-w-[80%] bg-slate-800/80 border border-slate-700 text-slate-50 px-3 py-2 rounded-2xl rounded-bl-sm shadow-sm">
-            ${msg}
+            } else {
+                wrapper.className = "flex justify-start message-enter";
+                wrapper.innerHTML = `
+          <div class="max-w-[85%] sm:max-w-[75%] bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-md">
+            <div class="flex items-start gap-2">
+              <div class="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                AI
+              </div>
+              <p class="flex-1 text-sm sm:text-base text-gray-800">${msg}</p>
+            </div>
           </div>
         `;
-      }
+            }
 
-      chatArea.appendChild(wrapper);
-      chatArea.scrollTop = chatArea.scrollHeight;
-    }
+            chatArea.appendChild(wrapper);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
 
-    function getReply(q) {
-      q = q.toLowerCase();
+        function getReply(q) {
+            q = q.toLowerCase();
 
-      if (q.includes("eb") && q.includes("name")) {
-        return "For EB name change you typically need: recent EB bill, ID proof (Aadhaar), address proof, and sale/lease deed. Visit your EB section office or the official online portal to submit the name change form.";
-      }
+            if (q.includes("eb") && q.includes("name")) {
+                return "For EB name change you typically need: recent EB bill, ID proof (Aadhaar), address proof, and sale/lease deed. Visit your EB section office or the official online portal to submit the name change form.";
+            }
 
-      if (q.includes("ration") && (q.includes("address") || q.includes("change"))) {
-        return "For ration address change, carry your existing ration card, new address proof (Aadhaar / rental agreement), and submit a change request at your ration shop or state’s online portal.";
-      }
+            if (q.includes("ration") && (q.includes("address") || q.includes("change"))) {
+                return "For ration address change, carry your existing ration card, new address proof (Aadhaar / rental agreement), and submit a change request at your ration shop or state’s online portal.";
+            }
 
-      if (q.includes("water") && (q.includes("new") || q.includes("connection"))) {
-        return "For a new water connection, you usually need property tax receipt, building approval (if applicable), ID proof and address proof. Submit the application at the local water board office or online portal.";
-      }
+            if (q.includes("water") && (q.includes("new") || q.includes("connection"))) {
+                return "For a new water connection, you usually need property tax receipt, building approval (if applicable), ID proof and address proof. Submit the application at the local water board office or online portal.";
+            }
 
-      if (q.includes("office") || q.includes("where")) {
-        return "You can use the Office Locator module in SaralSeva AI. It uses your location and opens Google Maps with nearby EB office, ration shop, or water board office.";
-      }
+            if (q.includes("office") || q.includes("where")) {
+                return "You can use the Office Locator module in SaralSeva AI. It uses your location and opens Google Maps with nearby EB office, ration shop, or water board office.";
+            }
 
-      return "This is a demo reply based on simple rules. In the complete system, I would be connected to the SaralSeva AI backend/LLM to give more detailed and personalized answers.";
-    }
+            return "This is a demo reply based on simple rules. In the complete system, I would be connected to the SaralSeva AI backend/LLM to give more detailed and personalized answers.";
+        }
 
-    chatForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const text = chatInput.value.trim();
-      if (!text) return;
+        chatForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const text = chatInput.value.trim();
+            if (!text) return;
 
-      addBubble(text, "user");
+            addBubble(text, "user");
 
-      // Optional "typing" feel
-      const typingId = "typing-" + Date.now();
-      const typingDiv = document.createElement("div");
-      typingDiv.id = typingId;
-      typingDiv.className = "flex justify-start";
-      typingDiv.innerHTML = `
-        <div class="max-w-[60%] bg-slate-800/40 border border-slate-700/60 text-slate-300 px-3 py-2 rounded-2xl rounded-bl-sm text-[10px] italic">
-          Typing...
+            // Show typing indicator
+            const typingId = "typing-" + Date.now();
+            const typingDiv = document.createElement("div");
+            typingDiv.id = typingId;
+            typingDiv.className = "flex justify-start";
+            typingDiv.innerHTML = `
+        <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 shadow-md">
+          <div class="flex items-center gap-2 typing-indicator">
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+          </div>
         </div>
       `;
-      chatArea.appendChild(typingDiv);
-      chatArea.scrollTop = chatArea.scrollHeight;
+            chatArea.appendChild(typingDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
 
-      const reply = getReply(text);
+            const reply = getReply(text);
 
-      setTimeout(() => {
-        const t = document.getElementById(typingId);
-        if (t) t.remove();
-        addBubble(reply, "bot");
-        lastBotMessage = reply;
-      }, 400);
+            setTimeout(() => {
+                const t = document.getElementById(typingId);
+                if (t) t.remove();
+                addBubble(reply, "bot");
+                lastBotMessage = reply;
+            }, 1000);
 
-      chatInput.value = "";
-    });
-  </script>
+            chatInput.value = "";
+        });
+    </script>
 </body>
+
 </html>

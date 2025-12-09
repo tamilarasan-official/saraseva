@@ -19,7 +19,26 @@ app.use(helmet());
 
 // CORS Configuration
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || "http://localhost:8000",
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+
+        const allowedOrigins = [
+            'http://localhost:8000',
+            'http://localhost:3000',
+            'http://localhost:5500',
+            'http://127.0.0.1:8000',
+            'http://127.0.0.1:3000',
+            'http://127.0.0.1:5500',
+            process.env.FRONTEND_URL
+        ].filter(Boolean);
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(null, true); // Allow all origins in development
+        }
+    },
     credentials: true,
     optionsSuccessStatus: 200
 };

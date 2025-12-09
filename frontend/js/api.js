@@ -43,6 +43,8 @@ class ApiService {
             headers: this.getHeaders(options.authenticated),
         };
 
+        console.log('API Request:', { url, method: options.method || 'GET', body: options.body });
+
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), this.timeout);
@@ -54,7 +56,9 @@ class ApiService {
 
             clearTimeout(timeoutId);
 
+            console.log('API Response status:', response.status);
             const data = await response.json();
+            console.log('API Response data:', data);
 
             if (!response.ok) {
                 throw {
@@ -66,6 +70,7 @@ class ApiService {
 
             return data;
         } catch (error) {
+            console.error('API Request error:', error);
             if (error.name === 'AbortError') {
                 throw { message: 'Request timeout. Please try again.' };
             }

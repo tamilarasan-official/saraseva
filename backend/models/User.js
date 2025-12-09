@@ -11,10 +11,10 @@ class User {
      */
     static async findByEmail(email) {
         try {
-            const [rows] = await db.query(
-                "SELECT * FROM users WHERE email = ?", [email]
+            const result = await db.query(
+                "SELECT * FROM users WHERE email = $1", [email]
             );
-            return rows[0] || null;
+            return result.rows[0] || null;
         } catch (error) {
             throw error;
         }
@@ -27,10 +27,10 @@ class User {
      */
     static async findByPhone(phone) {
         try {
-            const [rows] = await db.query(
-                "SELECT * FROM users WHERE phone = ?", [phone]
+            const result = await db.query(
+                "SELECT * FROM users WHERE phone = $1", [phone]
             );
-            return rows[0] || null;
+            return result.rows[0] || null;
         } catch (error) {
             throw error;
         }
@@ -44,10 +44,10 @@ class User {
     static async create(userData) {
         try {
             const { name, email, phone, password } = userData;
-            const [result] = await db.query(
-                "INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)", [name, email, phone, password]
+            const result = await db.query(
+                "INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4) RETURNING id", [name, email, phone, password]
             );
-            return result.insertId;
+            return result.rows[0].id;
         } catch (error) {
             throw error;
         }
@@ -60,10 +60,10 @@ class User {
      */
     static async findById(id) {
         try {
-            const [rows] = await db.query(
-                "SELECT id, name, email, phone, is_verified, created_at FROM users WHERE id = ?", [id]
+            const result = await db.query(
+                "SELECT id, name, email, phone, is_verified, created_at FROM users WHERE id = $1", [id]
             );
-            return rows[0] || null;
+            return result.rows[0] || null;
         } catch (error) {
             throw error;
         }
@@ -77,7 +77,7 @@ class User {
     static async updateLastLogin(id) {
         try {
             await db.query(
-                "UPDATE users SET last_login = NOW() WHERE id = ?", [id]
+                "UPDATE users SET last_login = NOW() WHERE id = $1", [id]
             );
             return true;
         } catch (error) {
@@ -96,11 +96,13 @@ class User {
             const allowedFields = ['name', 'phone'];
             const fields = [];
             const values = [];
+            let paramIndex = 1;
 
             for (const [key, value] of Object.entries(updates)) {
                 if (allowedFields.includes(key)) {
-                    fields.push(`${key} = ?`);
+                    fields.push(`${key} = $${paramIndex}`);
                     values.push(value);
+                    paramIndex++;
                 }
             }
 
@@ -110,7 +112,7 @@ class User {
 
             values.push(id);
             await db.query(
-                `UPDATE users SET ${fields.join(', ')} WHERE id = ?`,
+                `UPDATE users SET ${fields.join(', ')} WHERE id = $${paramIndex}`,
                 values
             );
             return true;
@@ -126,7 +128,7 @@ class User {
      */
     static async delete(id) {
         try {
-            await db.query("DELETE FROM users WHERE id = ?", [id]);
+            await db.query("DELETE FROM users WHERE id = $1", [id]);
             return true;
         } catch (error) {
             throw error;
@@ -142,10 +144,10 @@ class User {
     static async getAll(page = 1, limit = 10) {
         try {
             const offset = (page - 1) * limit;
-            const [rows] = await db.query(
-                "SELECT id, name, email, phone, is_verified, created_at FROM users LIMIT ? OFFSET ?", [limit, offset]
+            const result = await db.query(
+                "SELECT id, name, email, phone, is_verified, created_at FROM users LIMIT $1 OFFSET $2", [limit, offset]
             );
-            return rows;
+            return result.rows;
         } catch (error) {
             throw error;
         }
