@@ -14,11 +14,8 @@ class Validator {
     }
 
     static isStrongPassword(password) {
-        // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
-        return password.length >= 8 &&
-            /[a-z]/.test(password) &&
-            /[A-Z]/.test(password) &&
-            /[0-9]/.test(password);
+        // At least 6 characters
+        return password.length >= 6;
     }
 
     static sanitizeString(str) {
@@ -42,7 +39,7 @@ class Validator {
         }
 
         if (!data.password || !this.isStrongPassword(data.password)) {
-            errors.push('Password must be at least 8 characters with uppercase, lowercase, and number');
+            errors.push('Password must be at least 6 characters');
         }
 
         return {
@@ -58,7 +55,7 @@ class Validator {
             errors.push('Valid email is required');
         }
 
-        if (!data.password || data.password.length < 8) {
+        if (!data.password || data.password.length < 6) {
             errors.push('Password is required');
         }
 

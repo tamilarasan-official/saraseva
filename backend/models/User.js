@@ -1,7 +1,8 @@
-const db = require("../config/db-auto");
+const { getConnection } = require("../config/db-auto");
 
 /**
  * User Model - Handles all database operations for users
+ * Compatible with MySQL and In-Memory database
  */
 class User {
     /**
@@ -11,10 +12,15 @@ class User {
      */
     static async findByEmail(email) {
         try {
+            const db = getConnection();
             const result = await db.query(
-                "SELECT * FROM users WHERE email = $1", [email]
+                "SELECT * FROM users WHERE email = ?", [email]
             );
-            return result.rows[0] || null;
+            // Handle both MySQL (array) and in-memory (object with rows)
+            if (Array.isArray(result)) {
+                return result[0] || null;
+            }
+            return result.rows ? result.rows[0] : result[0] || null;
         } catch (error) {
             throw error;
         }
@@ -27,10 +33,14 @@ class User {
      */
     static async findByPhone(phone) {
         try {
+            const db = getConnection();
             const result = await db.query(
-                "SELECT * FROM users WHERE phone = $1", [phone]
+                "SELECT * FROM users WHERE phone = ?", [phone]
             );
-            return result.rows[0] || null;
+            if (Array.isArray(result)) {
+                return result[0] || null;
+            }
+            return result.rows ? result.rows[0] : result[0] || null;
         } catch (error) {
             throw error;
         }
@@ -38,16 +48,19 @@ class User {
 
     /**
      * Create new user
-     * @param {Object} userData - User data (name, email, phone, password)
+     * @param {Object} userData - User data (first_name, last_name, email, phone, password)
      * @returns {number} Inserted user ID
      */
     static async create(userData) {
         try {
-            const { name, email, phone, password } = userData;
+            const db = getConnection();
+            const { first_name, last_name, email, phone, password, aadhaar, address, city, state, pincode } = userData;
             const result = await db.query(
-                "INSERT INTO users (name, email, phone, password) VALUES ($1, $2, $3, $4) RETURNING id", [name, email, phone, password]
+                "INSERT INTO users (first_name, last_name, email, phone, password, aadhaar, address, city, state, pincode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+                [first_name, last_name || '', email, phone || '', password, aadhaar || '', address || '', city || '', state || '', pincode || '']
             );
-            return result.rows[0].id;
+            // Handle MySQL insertId
+            return result.insertId || result.id;
         } catch (error) {
             throw error;
         }
@@ -60,10 +73,14 @@ class User {
      */
     static async findById(id) {
         try {
+            const db = getConnection();
             const result = await db.query(
-                "SELECT id, name, email, phone, is_verified, created_at FROM users WHERE id = $1", [id]
+                "SELECT id, first_name, last_name, email, phone, created_at FROM users WHERE id = ?", [id]
             );
-            return result.rows[0] || null;
+            if (Array.isArray(result)) {
+                return result[0] || null;
+            }
+            return result.rows ? result.rows[0] : result[0] || null;
         } catch (error) {
             throw error;
         }
@@ -76,8 +93,9 @@ class User {
      */
     static async updateLastLogin(id) {
         try {
+            const db = getConnection();
             await db.query(
-                "UPDATE users SET last_login = NOW() WHERE id = $1", [id]
+                "UPDATE users SET last_login = NOW() WHERE id = ?", [id]
             );
             return true;
         } catch (error) {
@@ -93,16 +111,15 @@ class User {
      */
     static async update(id, updates) {
         try {
+            const db = getConnection();
             const allowedFields = ['name', 'phone'];
             const fields = [];
             const values = [];
-            let paramIndex = 1;
 
             for (const [key, value] of Object.entries(updates)) {
                 if (allowedFields.includes(key)) {
-                    fields.push(`${key} = $${paramIndex}`);
+                    fields.push(`${key} = ?`);
                     values.push(value);
-                    paramIndex++;
                 }
             }
 
@@ -112,7 +129,7 @@ class User {
 
             values.push(id);
             await db.query(
-                `UPDATE users SET ${fields.join(', ')} WHERE id = $${paramIndex}`,
+                `UPDATE users SET ${fields.join(', ')} WHERE id = ?`,
                 values
             );
             return true;
@@ -128,7 +145,8 @@ class User {
      */
     static async delete(id) {
         try {
-            await db.query("DELETE FROM users WHERE id = $1", [id]);
+            const db = getConnection();
+            await db.query("DELETE FROM users WHERE id = ?", [id]);
             return true;
         } catch (error) {
             throw error;
@@ -143,11 +161,16 @@ class User {
      */
     static async getAll(page = 1, limit = 10) {
         try {
+            const db = getConnection();
             const offset = (page - 1) * limit;
             const result = await db.query(
-                "SELECT id, name, email, phone, is_verified, created_at FROM users LIMIT $1 OFFSET $2", [limit, offset]
+                "SELECT id, name, email, phone, is_verified, created_at FROM users LIMIT ? OFFSET ?", 
+                [limit, offset]
             );
-            return result.rows;
+            if (Array.isArray(result)) {
+                return result;
+            }
+            return result.rows || result;
         } catch (error) {
             throw error;
         }

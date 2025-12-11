@@ -12,7 +12,21 @@ const ApiResponse = require("../utils/response");
  */
 exports.register = async(req, res, next) => {
     try {
-        const { name, email, phone, password } = req.body;
+        const { name, first_name, last_name, email, phone, password } = req.body;
+
+        // Handle both name formats: single "name" field or separate first_name/last_name
+        let firstName, lastName;
+        if (first_name) {
+            firstName = first_name;
+            lastName = last_name || '';
+        } else if (name) {
+            // Split full name into first and last name
+            const nameParts = name.trim().split(' ');
+            firstName = nameParts[0] || '';
+            lastName = nameParts.slice(1).join(' ') || '';
+        } else {
+            return ApiResponse.validationError(res, ['Name is required']);
+        }
 
         // Check if user already exists
         const existingUser = await User.findByEmail(email);
@@ -31,7 +45,8 @@ exports.register = async(req, res, next) => {
 
         // Create new user
         const userId = await User.create({
-            name,
+            first_name: firstName,
+            last_name: lastName,
             email,
             phone,
             password: hashedPassword
@@ -78,7 +93,7 @@ exports.login = async(req, res, next) => {
         const token = jwt.sign({
                 userId: user.id,
                 email: user.email,
-                name: user.name
+                name: `${user.first_name} ${user.last_name}`.trim()
             },
             process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || "24h" }
         );
@@ -89,10 +104,11 @@ exports.login = async(req, res, next) => {
             token,
             user: {
                 id: user.id,
-                name: user.name,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                name: `${user.first_name} ${user.last_name}`.trim(),
                 email: user.email,
-                phone: user.phone,
-                isVerified: user.is_verified
+                phone: user.phone
             }
         }, "Login successful");
     } catch (error) {
@@ -116,10 +132,11 @@ exports.getProfile = async(req, res, next) => {
 
         return ApiResponse.success(res, {
             id: user.id,
-            name: user.name,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            name: `${user.first_name} ${user.last_name}`.trim(),
             email: user.email,
             phone: user.phone,
-            isVerified: user.is_verified,
             createdAt: user.created_at
         }, "Profile fetched successfully");
     } catch (error) {

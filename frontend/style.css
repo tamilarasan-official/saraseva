@@ -4195,4 +4195,175 @@ section:nth-child(even) {
     background: var(--secondary-color);
 }
 
+/* ============================================
+   SOCIAL ICONS - ANIMATED 3D EFFECT
+   ============================================ */
+
+.social-icons-card {
+    max-width: fit-content;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    gap: 1rem;
+    backdrop-filter: blur(15px);
+    margin-top: 1rem;
+}
+
+.social-icons-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.iso-pro {
+    position: relative;
+    list-style: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.iso-pro span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #3b82f6;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.iso-pro span:nth-child(1) {
+    opacity: 0.2;
+}
+
+.iso-pro span:nth-child(2) {
+    opacity: 0.4;
+}
+
+.iso-pro span:nth-child(3) {
+    opacity: 0.6;
+}
+
+.iso-pro a {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    background: #3b82f6;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.iso-pro svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.iso-pro .text {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: #cbd5e0;
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+/* Hover Effects */
+.iso-pro:hover span:nth-child(1) {
+    opacity: 0.2;
+    transform: translate(-15px, 15px);
+}
+
+.iso-pro:hover span:nth-child(2) {
+    opacity: 0.4;
+    transform: translate(-7px, 7px);
+}
+
+.iso-pro:hover span:nth-child(3) {
+    opacity: 0.6;
+    transform: translate(7px, -7px);
+}
+
+.iso-pro:hover a {
+    transform: translate(15px, -15px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+}
+
+.iso-pro:hover .text {
+    opacity: 1;
+    bottom: -28px;
+}
+
+/* Individual Icon Colors */
+.iso-pro[data-color="#333"] span,
+.iso-pro[data-color="#333"] a {
+    background: #333;
+}
+
+.iso-pro[data-color="#333"]:hover a {
+    box-shadow: 0 10px 30px rgba(51, 51, 51, 0.4);
+}
+
+.iso-pro[data-color="#1DA1F2"] span,
+.iso-pro[data-color="#1DA1F2"] a {
+    background: #1DA1F2;
+}
+
+.iso-pro[data-color="#1DA1F2"]:hover a {
+    box-shadow: 0 10px 30px rgba(29, 161, 242, 0.4);
+}
+
+.iso-pro[data-color="#0A66C2"] span,
+.iso-pro[data-color="#0A66C2"] a {
+    background: #0A66C2;
+}
+
+.iso-pro[data-color="#0A66C2"]:hover a {
+    box-shadow: 0 10px 30px rgba(10, 102, 194, 0.4);
+}
+
+.iso-pro[data-color="#E4405F"] span,
+.iso-pro[data-color="#E4405F"] a {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+.iso-pro[data-color="#E4405F"]:hover a {
+    box-shadow: 0 10px 30px rgba(228, 64, 95, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .social-icons-list {
+        gap: 0.75rem;
+    }
+    
+    .iso-pro {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .iso-pro svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
 #file:styles.css this above code is css for #file:index.html

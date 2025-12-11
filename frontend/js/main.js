@@ -80,7 +80,7 @@ function initRegisterPage() {
         if (result.success) {
             UIUtils.showToast(result.data.message || 'Registration successful!', 'success');
             setTimeout(() => {
-                window.location.href = 'login.html';
+                window.location.href = 'login-new.html';
             }, 1500);
         } else {
             if (result.errors && Array.isArray(result.errors)) {
@@ -113,8 +113,8 @@ function validateRegistrationForm(data) {
         return false;
     }
 
-    if (data.password.length < 8) {
-        UIUtils.showToast('Password must be at least 8 characters', 'error');
+    if (data.password.length < 6) {
+        UIUtils.showToast('Password must be at least 6 characters', 'error');
         return false;
     }
 
